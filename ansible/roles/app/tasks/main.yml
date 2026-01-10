@@ -1,0 +1,48 @@
+---
+
+# 1. Install httpd
+- name: Install httpd
+  yum:
+    name: httpd
+    state: present
+
+# 2. Start and enable httpd service
+- name: Start and enable httpd
+  service:
+    name: httpd
+    state: started
+    enabled: yes
+
+# 3. Copy index.html.j2 to /var/www/html/index.html
+- name: Deploy index.html
+  template:
+    src: index.html.j2
+    dest: /var/www/html/index.html
+    mode: '0644'
+
+# 4. Allow HTTP through firewall (so page is accessible via browser)
+- name: Allow HTTP service in firewalld
+  firewalld:
+    service: http
+    permanent: yes
+    state: enabled
+    immediate: yes
+  when: ansible_facts.services['firewalld.service'] is defined
+
+# 5. Open port 80/TCP
+- name: Allow port 80 TCP
+  firewalld:
+    port: 80/tcp
+    permanent: yes
+    state: enabled
+    immediate: yes
+
+# 6. Open port 80/UDP
+- name: Allow port 80 UDP
+  firewalld:
+    port: 80/udp
+    permanent: yes
+    state: enabled
+    immediate: yes
+
+
