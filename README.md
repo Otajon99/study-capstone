@@ -1,3 +1,4 @@
+```
 mkdir -p /opt/study-capstone
   273  cd /opt/study-capstone
   274  mkdir -p ansible/{inventory,playbook,roles/app/{tasks,templates,vars}}
@@ -75,3 +76,4 @@ mkdir -p /opt/study-capstone
   346  ls -l
   347  vi Jenkinsfile 
   348  history
+```
